@@ -1,5 +1,5 @@
 import React from 'react'
-import { Copyright } from "lucide-react";
+import { FaCopyright } from "react-icons/fa";
 
 const Bottomnav = () => {
   return (
@@ -19,7 +19,7 @@ const Bottomnav = () => {
         alignItems: 'center',
         maxWidth: '500px', // Optional: limits width on larger screens
         margin: '0 auto',
-      }} className="flex inline "><div className=""><Copyright className='inline'/><p className='inline'>NovusMovies 2025</p></div></div>
+      }} className="flex inline "><div className=""><FaCopyright className='inline'/><p className='inline'>NovusMovies 2025</p></div></div>
     </div>
   )
 }

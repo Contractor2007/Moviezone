@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { FaBars } from 'react-icons/fa';
 
 
 function Topnav() {
@@ -48,7 +48,7 @@ function Topnav() {
       </div>
       
       {/* Mobile Menu Button */}
-      <Menu
+      <FaBars
         style={{
           fontSize: '1.25rem',
           cursor: 'pointer',

@@ -8,7 +8,7 @@ export async function GET() {
       method: 'GET',
       hostname: 'imdb232.p.rapidapi.com',
       port: null,
-      path: '/api/news',
+      path: '/api/news/get-by-category?limit=40&category=CELEBRITY',
       headers: {
         'x-rapidapi-key': process.env.RAPIDAPI_KEY || 'fa8fd44fa4msh5b6d98cad679c89p1a1257jsn48e563dce09c',
         'x-rapidapi-host': 'imdb232.p.rapidapi.com'

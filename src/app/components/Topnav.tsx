@@ -1,5 +1,7 @@
+'use client'
 import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { Menu } from 'lucide-react';
+
 
 function Topnav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,22 +36,23 @@ function Topnav() {
         display: 'none',
         gap: '1.5rem',
         alignItems: 'center',
-        '@media (min-width: 768px)': {
+        '@media (minWidth: 768px)': {
           display: 'flex'
         }
       }}>
-        <NavLink href="/Imdb/Search/Movies" text="Movies" />
-        <NavLink href="/Imdb/Search/News" text="News" />
-        <NavLink href="/Imdb/Search/Popular" text="Popular" />
-        <NavLink href="/Imdb/Search/TvShows" text="TvShows" />
+        <NavLink href="/Home" text="Home" />
+        <NavLink href="/Imdb/Movies" text="Movies" />
+        <NavLink href="/Imdb/News" text="News" />
+        <NavLink href="/Imdb/Popular" text="Popular" />
+        <NavLink href="/Imdb/TvShows" text="TvShows" />
       </div>
       
       {/* Mobile Menu Button */}
-      <FaBars 
+      <Menu
         style={{
           fontSize: '1.25rem',
           cursor: 'pointer',
-          '@media (min-width: 768px)': {
+          '@media (minWidth: 768px)': {
             display: 'none'
           }
         }}
@@ -69,14 +72,15 @@ function Topnav() {
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-          '@media (min-width: 768px)': {
+          '@media (minWidth: 768px)': {
             display: 'none'
           }
         }}>
-          <NavLink href="/Imdb/Search/Movies" text="Movies" />
-          <NavLink href="/Imdb/Search/News" text="News" />
-          <NavLink href="/Imdb/Search/Popular" text="Popular" />
-          <NavLink href="/Imdb/Search/TvShows" text="TvShows" />
+          <NavLink href="/Home" text="Home" />
+          <NavLink href="/Imdb/Movies" text="Movies" />
+          <NavLink href="/Imdb/News" text="News" />
+          <NavLink href="/Imdb/Popular" text="Popular" />
+          <NavLink href="/Imdb/TvShows" text="TvShows" />
         </div>
       )}
     </div>

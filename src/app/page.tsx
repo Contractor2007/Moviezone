@@ -1,5 +1,5 @@
 import React from 'react'
-import Home from './dashboard/Home/page'
+import Home from './Home/page'
 
 function page() {
   return (

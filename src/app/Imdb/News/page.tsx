@@ -2,96 +2,108 @@
 import Topnav from '@/app/components/Topnav';
 import React, { useEffect, useState } from 'react';
 
-// Define the structure of the news data
 interface NewsArticle {
   id: string;
   byline: string;
   date: string;
-  externalUrl: string;
   articleTitle: {
     plainText: string;
   };
   image: {
     url: string;
-    height: number;
-    width: number;
   };
   text: {
     plainText: string;
   };
-  source: {
-    homepage: {
-      url: string;
-      label: string;
-    };
-  };
 }
 
 const NewsList: React.FC = () => {
-  const [news, setNews] = useState<NewsArticle[]>([]); // Store news data
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [news, setNews] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch news data when the component mounts
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('/api/news'); // Fetch news from the API
-        if (!response.ok) {
-          throw new Error('Failed to fetch news');
-        }
+        const response = await fetch('/api/news');
+        if (!response.ok) throw new Error('Failed to fetch news');
         const data = await response.json();
-        setNews(data.data.news.edges.map((edge: any) => edge.node)); // Extract news articles from the response
+        setNews(data.data.news.edges.map((edge: any) => edge.node));
       } catch (err: any) {
-        setError(err.message); // Handle errors
+        setError(err.message);
       } finally {
-        setLoading(false); // Set loading to false once the request is complete
+        setLoading(false);
       }
     };
 
     fetchNews();
-  }, []); // Empty dependency array means it runs once when the component mounts
+  }, []);
 
-  // Render loading, error, or news data
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Topnav />
+        <div className="pt-24 flex justify-center items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Topnav />
+        <div className="pt-24 px-4">
+          <div className="max-w-4xl mx-auto bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+            <p className="font-bold">Error</p>
+            <p>{error}</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Topnav />
-      <h1>News Articles</h1>
-      <ul>
-        {news.map((article) => (
-          <li key={article.id} style={{ marginBottom: '20px' }}>
-            <h2>{article.articleTitle.plainText}</h2>
-            <p><strong>By: </strong>{article.byline}</p>
-            <p><strong>Published on: </strong>{new Date(article.date).toLocaleDateString()}</p>
-            <div>
-              <img
-                src={article.image.url}
-                alt={article.articleTitle.plainText}
-                style={{ width: '100%', maxWidth: '600px', height: 'auto' }}
-              />
-            </div>
-            <p>{article.text.plainText}</p>
-            <p>
-              <a href={article.externalUrl} target="_blank" rel="noopener noreferrer">
-                Read full article
-              </a>
-            </p>
-            <p>
-              Source: <a href={article.source.homepage.url} target="_blank" rel="noopener noreferrer">
-                {article.source.homepage.label}
-              </a>
-            </p>
-          </li>
-        ))}
-      </ul>
+      <div className="pt-24 pb-12 max-w-3xl mx-auto px-4">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Latest News</h1>
+        
+        <div className="space-y-10">
+          {news.map((article) => (
+            <article key={article.id} className="bg-white rounded-lg p-6">
+              <div className="mb-2 text-sm text-gray-500">
+                {new Date(article.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </div>
+              
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {article.articleTitle.plainText}
+              </h2>
+              
+              {article.image?.url && (
+                <img
+                  src={article.image.url}
+                  alt={article.articleTitle.plainText}
+                  className="w-full h-auto mb-5 rounded-lg"
+                />
+              )}
+              
+              <p className="text-gray-700 leading-relaxed mb-3">
+                {article.text.plainText}
+              </p>
+              
+              <div className="text-sm text-gray-500">
+                {article.byline}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

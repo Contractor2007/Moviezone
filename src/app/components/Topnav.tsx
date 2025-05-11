@@ -2,44 +2,18 @@
 import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 
-
 function Topnav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: '#0f172a',
-      color: 'white',
-      padding: '1rem',
-      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-      zIndex: 1000,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    }}>
+    <div className="fixed top-0 left-0 right-0 bg-slate-900 text-white p-4 shadow-lg z-50 flex justify-between items-center">
       {/* Logo */}
-      <h3 style={{
-        margin: 0,
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-        background: 'linear-gradient(90deg, #3b82f6, #ec4899)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent'
-      }}>NovusMovies</h3>
+      <h3 className="m-0 text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
+        NovusMovies
+      </h3>
       
       {/* Desktop Navigation */}
-      <div style={{
-        display: 'none',
-        gap: '1.5rem',
-        alignItems: 'center',
-        '@media (minWidth: 768px)': {
-          display: 'flex'
-        }
-      }}>
+      <div className="hidden md:flex gap-6 items-center">
         <NavLink href="/Home" text="Home" />
         <NavLink href="/Imdb/Movies" text="Movies" />
         <NavLink href="/Imdb/News" text="News" />
@@ -49,33 +23,13 @@ function Topnav() {
       
       {/* Mobile Menu Button */}
       <FaBars
-        style={{
-          fontSize: '1.25rem',
-          cursor: 'pointer',
-          '@media (minWidth: 768px)': {
-            display: 'none'
-          }
-        }}
+        className="text-xl cursor-pointer md:hidden"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
       
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          right: 0,
-          backgroundColor: '#0f172a',
-          width: '200px',
-          padding: '1rem',
-          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          '@media (minWidth: 768px)': {
-            display: 'none'
-          }
-        }}>
+        <div className="absolute top-full right-0 bg-slate-900 w-48 p-4 shadow-lg flex flex-col gap-3 md:hidden">
           <NavLink href="/Home" text="Home" />
           <NavLink href="/Imdb/Movies" text="Movies" />
           <NavLink href="/Imdb/News" text="News" />
@@ -94,19 +48,10 @@ interface NavLinkProps {
 }
 
 function NavLink({ href, text }: NavLinkProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  
   return (
     <a 
       href={href}
-      style={{
-        color: isHovered ? '#3b82f6' : 'white',
-        textDecoration: 'none',
-        fontWeight: '500',
-        transition: 'color 0.2s'
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="text-white hover:text-blue-400 no-underline font-medium transition-colors"
     >
       {text}
     </a>

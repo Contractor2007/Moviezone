@@ -1,54 +1,114 @@
-'use client'
-import Bottomnav from '@/app/components/Bottomnav'
-import Topnav from '@/app/components/Topnav'
-import React from 'react'
+'use client';
+import Bottomnav from '@/app/components/Bottomnav';
+import Topnav from '@/app/components/Topnav';
+import React from 'react';
 
 function Home() {
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between'
-    }}>
-      
-      
-      <main style={{
-        flex: 1,
-        padding: '1rem',
-        maxWidth: '800px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <Topnav />
-        <h1 style={{
-          fontSize: '2rem',
-          fontWeight: 'bold',
-          marginBottom: '1rem',
-          textAlign: 'center',
-          background: 'linear-gradient(90deg, #3b82f6, #ec4899)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
-        }}>
-          Welcome to NovusMovies!
-        </h1>
-        
-        <p style={{
-          lineHeight: '1.6',
-          fontSize: '1rem',
-          textAlign: 'justify',
-          wordWrap: 'break-word',
-          overflowWrap: 'break-word',
-          hyphens: 'auto'
-        }}>
-          Welcome to NovusMovies your ultimate destination for all things cinema! Whether you are a die-hard film buff, a casual viewer, or just looking for your next movie night pick, we have got you covered. Explore in-depth reviews, the latest trailers, exclusive recommendations, and behind-the-scenes insights on your favorite films. From timeless classics to the hottest new releases, our passion for movies drives us to bring you the best content. Sit back, grab some popcorn, and dive into the magic of movies with us. Lights, camera, action—your cinematic journey starts here! 🎬🍿
-        </p>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        backgroundColor: '#f9fafb',
+        fontFamily: 'system-ui, sans-serif',
+      }}
+    >
+      <Topnav />
+
+      <main
+        style={{
+          flex: 1,
+          paddingTop: '5rem', // leave space for fixed Topnav (approx. 80px)
+          paddingBottom: '5rem', // also leave space for Bottomnav
+          paddingLeft: '1rem',
+          paddingRight: '1rem',
+          maxWidth: '900px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
+        <section style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h1
+            style={{
+              fontSize: '2.5rem',
+              fontWeight: 800,
+              background: 'linear-gradient(90deg, #3b82f6, #ec4899)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              marginBottom: '1rem',
+            }}
+          >
+            Welcome to NovusMovies!
+          </h1>
+          <p
+            style={{
+              fontSize: '1.1rem',
+              color: '#374151',
+              lineHeight: '1.8',
+              maxWidth: '700px',
+              margin: '0 auto',
+            }}
+          >
+            Your ultimate destination for everything cinema. From timeless classics to the latest box office hits, dive into a world of curated reviews, trailers, recommendations, and behind-the-scenes magic.
+          </p>
+        </section>
+
+        <section
+          style={{
+            backgroundColor: '#ffffff',
+            padding: '1.5rem',
+            borderRadius: '1rem',
+            boxShadow: '0 0 10px rgba(0,0,0,0.05)',
+            marginBottom: '2rem',
+          }}
+        >
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem' }}>Why NovusMovies?</h2>
+          <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem', lineHeight: '1.8', color: '#4b5563' }}>
+            <li>🧠 Smart movie recommendations powered by trends & taste.</li>
+            <li>🎥 Watch the latest trailers instantly.</li>
+            <li>🍿 Curated lists for every genre, mood, or occasion.</li>
+            <li>🌍 Explore global cinema beyond Hollywood.</li>
+            <li>🎞️ Save your watchlist & share with friends.</li>
+          </ul>
+        </section>
+
+        <section
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '1.5rem',
+          }}
+        >
+          {[
+            { title: 'Browse Movies', emoji: '📚' },
+            { title: 'Top Rated', emoji: '⭐' },
+            { title: 'Genres', emoji: '🎭' },
+            { title: 'Now Playing', emoji: '🕒' },
+            { title: 'Upcoming Releases', emoji: '🚀' },
+          ].map((item) => (
+            <div
+              key={item.title}
+              style={{
+                backgroundColor: '#ffffff',
+                padding: '1rem',
+                borderRadius: '0.75rem',
+                textAlign: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+              }}
+            >
+              <div style={{ fontSize: '2rem' }}>{item.emoji}</div>
+              <div style={{ fontSize: '1rem', fontWeight: 600, marginTop: '0.5rem' }}>{item.title}</div>
+            </div>
+          ))}
+        </section>
       </main>
-      
+
       <Bottomnav />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

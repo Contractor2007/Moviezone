@@ -17,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Topnav />
+        <Topnav/>
         {children}
-        <Bottomnav />
+        <Bottomnav/>
       </body>
     </html>
   );

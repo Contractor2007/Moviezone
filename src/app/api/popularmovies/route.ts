@@ -1,56 +1,27 @@
-import { NextResponse } from 'next/server';
-import https from 'https';
-
+// app/api/imdb/top-rated-english-movies/route.ts
 export async function GET() {
-  return new Promise<NextResponse>((resolve) => {
-    const options = {
+  try {
+    const res = await fetch('https://imdb236.p.rapidapi.com/api/imdb/top-rated-english-movies', {
       method: 'GET',
-      hostname: 'imdb236.p.rapidapi.com',
-      port: null,
-      path: '/imdb/most-popular-movies',
       headers: {
-        'x-rapidapi-key': process.env.RAPIDAPI_KEY || 'fa8fd44fa4msh5b6d98cad679c89p1a1257jsn48e563dce09c',
-        'x-rapidapi-host': 'imdb236.p.rapidapi.com'
-      }
-    };
-
-    const apiRequest = https.request(options, (apiResponse) => {
-      let data = '';
-
-      apiResponse.on('data', (chunk) => {
-        data += chunk;
-      });
-
-      apiResponse.on('end', () => {
-        try {
-          const result = JSON.parse(data);
-          resolve(NextResponse.json(result));
-        } catch (error) {
-          resolve(NextResponse.json(
-            { message: 'Error parsing API response', error: error instanceof Error ? error.message : 'Unknown error' },
-            { status: 500 }
-          ));
-        }
-      });
+        'x-rapidapi-key': 'fa8fd44fa4msh5b6d98cad679c89p1a1257jsn48e563dce09c',
+        'x-rapidapi-host': 'imdb236.p.rapidapi.com',
+      },
     });
 
-    apiRequest.on('error', (error) => {
-      resolve(NextResponse.json(
-        { message: 'Error fetching from IMDb API', error: error.message },
-        { status: 500 }
-      ));
+    if (!res.ok) {
+      return new Response('Failed to fetch from RapidAPI', { status: res.status });
+    }
+
+    const data = await res.json();
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
-
-    apiRequest.end();
-  });
-}
-
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }
